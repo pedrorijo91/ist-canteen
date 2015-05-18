@@ -56,63 +56,63 @@
         <tbody>
           <tr>
             <th scope="row">lunch soup</th>
-            <td>No available info</td>
-            <td>No available info</td>
-            <td>No available info</td>
-            <td>No available info</td>
-            <td>No available info</td>
-            <td>No available info</td>
-            <td>No available info</td>
+            <td id='monday-sopa'>No available info</td>
+            <td id='tuesday-sopa'>No available info</td>
+            <td id='wednesday-sopa'>No available info</td>
+            <td id='thursday-sopa'>No available info</td>
+            <td id='friday-sopa'>No available info</td>
+            <td id='saturday-sopa'>No available info</td>
+            <td id='sunday-sopa'>No available info</td>
           </tr>
           <tr>
             <th scope="row">lunch meet</th>
-            <td>No available info</td>
-            <td>No available info</td>
-            <td>No available info</td>
-            <td>No available info</td>
-            <td>No available info</td>
-            <td>No available info</td>
-            <td>No available info</td>
+            <td id='monday-carne'>No available info</td>
+            <td id='tuesday-carne'>No available info</td>
+            <td id='wednesday-carne'>No available info</td>
+            <td id='thursday-carne'>No available info</td>
+            <td id='friday-carne'>No available info</td>
+            <td id='saturday-carne'>No available info</td>
+            <td id='sunday-carne'>No available info</td>
           </tr>
           <tr>
             <th scope="row">lunch fish</th>
-            <td>No available info</td>
-            <td>No available info</td>
-            <td>No available info</td>
-            <td>No available info</td>
-            <td>No available info</td>
-            <td>No available info</td>
-            <td>No available info</td>
+            <td id='monday-peixe'>No available info</td>
+            <td id='tuesday-peixe'>No available info</td>
+            <td id='wednesday-peixe'>No available info</td>
+            <td id='thursday-peixe'>No available info</td>
+            <td id='friday-peixe'>No available info</td>
+            <td id='saturday-peixe'>No available info</td>
+            <td id='sunday-peixe'>No available info</td>
           </tr>
           <tr>
             <th scope="row">lunch mass</th>
-            <td>No available info</td>
-            <td>No available info</td>
-            <td>No available info</td>
-            <td>No available info</td>
-            <td>No available info</td>
-            <td>No available info</td>
-            <td>No available info</td>
+            <td id='monday-massa'>No available info</td>
+            <td id='tuesday-massa'>No available info</td>
+            <td id='wednesday-massa'>No available info</td>
+            <td id='thursday-massa'>No available info</td>
+            <td id='friday-massa'>No available info</td>
+            <td id='saturday-massa'>No available info</td>
+            <td id='sunday-massa'>No available info</td>
           </tr>
           <tr>
             <th scope="row">lunch veg</th>
-            <td>No available info</td>
-            <td>No available info</td>
-            <td>No available info</td>
-            <td>No available info</td>
-            <td>No available info</td>
-            <td>No available info</td>
-            <td>No available info</td>
+            <td id='monday-macrobiótico'>No available info</td>
+            <td id='tuesday-macrobiótico'>No available info</td>
+            <td id='wednesday-macrobiótico'>No available info</td>
+            <td id='thursday-macrobiótico'>No available info</td>
+            <td id='friday-macrobiótico'>No available info</td>
+            <td id='saturday-macrobiótico'>No available info</td>
+            <td id='sunday-macrobiótico'>No available info</td>
           </tr>
           <tr>
             <th scope="row">dinner</th>
-            <td>No available info</td>
-            <td>No available info</td>
-            <td>No available info</td>
-            <td>No available info</td>
-            <td>No available info</td>
-            <td>No available info</td>
-            <td>No available info</td>
+            <td id='monday-jantar'>No available info</td>
+            <td id='tuesday-jantar'>No available info</td>
+            <td id='wednesday-jantar'>No available info</td>
+            <td id='thursday-jantar'>No available info</td>
+            <td id='friday-jantar'>No available info</td>
+            <td id='saturday-jantar'>No available info</td>
+            <td id='sunday-jantar'>No available info</td>
           </tr>
         </tbody>
       </table>
@@ -145,6 +145,8 @@
           //http://www.textfixer.com/tools/remove-white-spaces.php
           //http://bernhardhaeussner.de/odd/json-escape/
           //delete \n
+          var pattern = /(\d{2})\/(\d{1,2})\/(\d{4})/;
+          var dates=[];
 
           var data = "[ { \"day\": \"18/5/2015\", \"meal\": [ { \"info\": [ { \"menu\": \"Menú Macrobiótica\", \"name\": \"Feijoada de cogumelos\", \"type\": \"Macrobiótico\" }, { \"menu\": \"Menú Tradicional\", \"name\": \"Arroz de frango\", \"type\": \"Carne\" }, { \"menu\": \"Menú Tradicional\", \"name\": \"Fuzilli de atum\", \"type\": \"Massa\" }, { \"menu\": \"Menú Tradicional\", \"name\": \"Sopa de espinafres\", \"type\": \"Sopa\" } ], \"type\": \"Almoço\" }, { \"info\": [ { \"menu\": \"Menú Tradicional\", \"name\": \"Rissois de camarão com arroz\", \"type\": \"Peixe\" } ], \"type\": \"Jantar\" } ] }, { \"day\": \"21/5/2015\", \"meal\": [ { \"info\": [ { \"menu\": \"Menú Macrobiótica\", \"name\": \"Croquetes de seitan com arroz\", \"type\": \"Macrobiótico\" }, { \"menu\": \"Menú Tradicional\", \"name\": \"Fusílli tricolor c/frango e cogumelos\", \"type\": \"Massa\" }, { \"menu\": \"Menú Tradicional\", \"name\": \"Bacalhau com natas\", \"type\": \"Peixe\" }, { \"menu\": \"Menú Tradicional\", \"name\": \"Sopa camponesa\", \"type\": \"Sopa\" } ], \"type\": \"Almoço\" }, { \"info\": [ { \"menu\": \"Menú Tradicional\", \"name\": \"Frango assado com arroz\", \"type\": \"Carne\" } ], \"type\": \"Jantar\" } ] }, { \"day\": \"20/5/2015\", \"meal\": [ { \"info\": [ { \"menu\": \"Menú Macrobiótica\", \"name\": \"Berinjela parmesiana com puré\", \"type\": \"Macrobiótico\" }, { \"menu\": \"Menú Tradicional\", \"name\": \"Lombo de porco com arroz\", \"type\": \"Carne\" }, { \"menu\": \"Menú Tradicional\", \"name\": \"Esparguete à bolonhesa\", \"type\": \"Massa\" }, { \"menu\": \"Menú Tradicional\", \"name\": \"Sopa de nabiças\", \"type\": \"Sopa\" } ], \"type\": \"Almoço\" }, { \"info\": [ { \"menu\": \"Menú Tradicional\", \"name\": \"Red fish com batata assada\", \"type\": \"Peixe\" } ], \"type\": \"Jantar\" } ] }, { \"day\": \"19/5/2015\", \"meal\": [ { \"info\": [ { \"menu\": \"Menú Macrobiótica\", \"name\": \"Tofu no forno com legumes assados\", \"type\": \"Macrobiótico\" }, { \"menu\": \"Menú Tradicional\", \"name\": \"Lasanha de carne\", \"type\": \"Massa\" }, { \"menu\": \"Menú Tradicional\", \"name\": \"Lula à algarvia com batata frita\", \"type\": \"Peixe\" }, { \"menu\": \"Menú Tradicional\", \"name\": \"Sopa juliana\", \"type\": \"Sopa\" } ], \"type\": \"Almoço\" }, { \"info\": [ { \"menu\": \"Menú Tradicional\", \"name\": \"Arroz à valenciana\", \"type\": \"Carne\" } ], \"type\": \"Jantar\" } ] }, { \"day\": \"22/5/2015\", \"meal\": [ { \"info\": [ { \"menu\": \"Menú Macrobiótica\", \"name\": \"Pizza de seitan\", \"type\": \"Macrobiótico\" }, { \"menu\": \"Menú Tradicional\", \"name\": \"Esparguete à carbonara\", \"type\": \"Massa\" }, { \"menu\": \"Menú Tradicional\", \"name\": \"Salada de atum com feijão frade\", \"type\": \"Peixe\" }, { \"menu\": \"Menú Tradicional\", \"name\": \"Creme de legumes\", \"type\": \"Sopa\" } ], \"type\": \"Almoço\" }, { \"info\": [ { \"menu\": \"Menú Tradicional\", \"name\": \"Bifana frita com esparguete\", \"type\": \"Carne\" } ], \"type\": \"Jantar\" } ] }]"
 
@@ -152,40 +154,38 @@
 
           $.each(obj, function(index, element) {
             var day = element.day
+            var date = new Date(day.replace(pattern,'$3-$2-$1'));
+            var weekday = weekdays[date.getDay()].toLowerCase();
+            $('#' + weekday).html(formatDateString(date))
+
+            dates.push(date);
 
             var meals = element.meal
             $.each(meals, function(index, element) {
-              var meal_type = element.type
+              var meal_type = element.type.toLowerCase()
 
               var info = element.info
               $.each(info, function(index, element) {
-              // var menu = element.menu
                 var name = element.name
-                var dish_type = element.type
+                var dish_type = element.type.toLowerCase()
 
-                console.log("Day " + day + ", meal_type: " + meal_type + ", dish_type: " + dish_type + ", name: " +  name);
+                if(meal_type === "jantar") {
+                  $('#' + weekday + '-' + meal_type).html(name);
+                }
+                else {
+                  $('#' + weekday + '-' + dish_type).html(name);
+                }
+
+                //console.log("Day " + day + ", meal_type: " + meal_type + ", dish_type: " + dish_type + ", name: " +  name);
               });
             });
           });
 
-          var st = "18/5/2015";
-          var pattern = /(\d{2})\/(\d{1,2})\/(\d{4})/;
-          var date = new Date(st.replace(pattern,'$3-$2-$1'));
-
-          var weekday = weekdays[date.getDay()];
-
-          var dates=[];
-          dates.push(new Date("2011/06/25"))
-          dates.push(new Date("2011/06/26"))
-          dates.push(new Date("2011/06/27"))
-          dates.push(new Date("2019/01/28"))
           var maxDate=new Date(Math.max.apply(null,dates));
           var minDate=new Date(Math.min.apply(null,dates));
 
           $('#week-info').html(formatDateString(minDate) + " to " + formatDateString(maxDate))
-
-          $('#' + weekday.toLowerCase()).html(formatDateString(date))
-    }
+        }
 
     function formatDateString(date) {
       return date.getDate() + "/" + months[date.getMonth()] + "/" + date.getFullYear();
