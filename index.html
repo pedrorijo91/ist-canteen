@@ -19,14 +19,6 @@
       <p>Weekly menu: <span id='week-info'></span></p> 
     </div>
 
-    <p>
-      <div class="row">
-        <div class="col-sm-8">
-          <input class="btn btn-default" type="button" value="Refresh" onclick="loadCanteenInfo()">
-        </div>
-      </div>
-    </p>
-
     <div class="table-responsive ">
       <table class="table table-bordered table-striped">
         <thead>
@@ -122,117 +114,110 @@
   <script>
   $(document).ready(loadCanteenInfo);
 
-  var weekdays = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-  var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+var weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-    function loadCanteenInfo() {
-      readDataFromFile(); 
-    }
+function loadCanteenInfo() {
+    readDataFromFile();
+}
 
-    function readDataFromFile() {
-      //https://fenix.tecnico.ulisboa.pt/api/fenix/v1/canteen
-      //http://www.textfixer.com/tools/remove-white-spaces.php
-      //http://codebeautify.org/jsonviewer 
-      //http://bernhardhaeussner.de/odd/json-escape/
+function readDataFromFile() {
+    //https://fenix.tecnico.ulisboa.pt/api/fenix/v1/canteen
+    //http://www.textfixer.com/tools/remove-white-spaces.php
+    //http://codebeautify.org/jsonviewer 
+    //http://bernhardhaeussner.de/odd/json-escape/
 
-      var filePath = "assets/resources/";
-      var filename = "data.json";
-      var file = filePath + filename;
+    var filePath = "assets/resources/";
+    var filename = "data.json";
+    var file = filePath + filename;
 
-      $.ajax({
+    $.ajax({
         dataType: "json",
         url: file,
         success: function(jdata) {
-          var json = $.parseJSON(jdata);
-          processData(json);
+            var json = $.parseJSON(jdata);
+            processData(json);
         },
         error: function(err) {
-          console.error("error reading from file: " + file);
+            console.error("error reading from file: " + file);
         }
-      });
-    }
+    });
+}
 
-    function processData(obj) {
-          //http://www.textfixer.com/tools/remove-white-spaces.php
-          //http://bernhardhaeussner.de/odd/json-escape/
-          //delete \n
-          
-          var pattern = /(\d{2})\/(\d{1,2})\/(\d{4})/;
-          var dates=[];
+function processData(obj) {
+    var pattern = /(\d{2})\/(\d{1,2})\/(\d{4})/;
+    var dates = [];
 
-          resetInfo();
+    resetInfo();
 
-          $.each(obj, function(index, element) {
-            var day = element.day
-            var dateArr = day.split('/');
-            
-            var dayOfMonth =  dateArr[0];
-            if(dayOfMonth.length < 2) {
-              dayOfMonth = "0" + dayOfMonth 
-            } 
+    $.each(obj, function(index, element) {
+        var day = element.day
+        var dateArr = day.split('/');
 
-            var month = dateArr[1];
-            if(month.length < 2) {
-              month = "0" + month 
-            } 
+        var dayOfMonth = dateArr[0];
+        if (dayOfMonth.length < 2) {
+            dayOfMonth = "0" + dayOfMonth
+        }
 
-            var year = dateArr[2];
-            var date = new Date(year + "-" + month + "-" + dayOfMonth);
-            var weekday = weekdays[date.getDay()];
-            weekday = weekday.toLowerCase();
-            $('#' + weekday).html(formatDateString(date))
+        var month = dateArr[1];
+        if (month.length < 2) {
+            month = "0" + month
+        }
 
-            dates.push(date);
+        var year = dateArr[2];
+        var date = new Date(year + "-" + month + "-" + dayOfMonth);
+        var weekday = weekdays[date.getDay()];
+        weekday = weekday.toLowerCase();
+        $('#' + weekday).html(formatDateString(date))
 
-            var meals = element.meal
-            $.each(meals, function(index, element) {
-              var meal_type = element.type.toLowerCase()
+        dates.push(date);
 
-              var info = element.info
-              $.each(info, function(index, element) {
+        var meals = element.meal
+        $.each(meals, function(index, element) {
+            var meal_type = element.type.toLowerCase()
+
+            var info = element.info
+            $.each(info, function(index, element) {
                 var name = element.name
                 var dish_type = element.type.toLowerCase()
 
-                if(meal_type === "jantar") {
-                  if($('#' + weekday + '-' + meal_type).length != 0) {
-                    $('#' + weekday + '-' + meal_type).html(name);
-                  }
-                  else {
-                    $('#alert').show();
-                    $('#alert').append('<p>' + 'Weird value! Day: ' + day + ', Meal: ' + meal_type +', Dish: ' + dish_type + ', with name: ' + name + '</p>');
-                    console.error("Weird value! Day: " + day + ", Meal: " + meal_type +", Dish: " + dish_type + ", with name: " + name);
-                  }
+                if (meal_type === "jantar") {
+                    if ($('#' + weekday + '-' + meal_type).length != 0) {
+                        $('#' + weekday + '-' + meal_type).html(name);
+                    } else {
+                        $('#alert').show();
+                        $('#alert').append('<p>' + 'Weird value! Day: ' + day + ', Meal: ' + meal_type + ', Dish: ' + dish_type + ', with name: ' + name + '</p>');
+                        console.error("Weird value! Day: " + day + ", Meal: " + meal_type + ", Dish: " + dish_type + ", with name: " + name);
+                    }
+                } else {
+                    if ($('#' + weekday + '-' + dish_type).length != 0) {
+                        $('#' + weekday + '-' + dish_type).html(name);
+                    } else {
+                        $('#alert').show();
+                        $('#alert').append('<p>' + 'Weird value! Day: ' + day + ', Meal: ' + meal_type + ', Dish: ' + dish_type + ', with name: ' + name + '</p>');
+                        console.error("Weird value! Day: " + day + ", Meal: " + meal_type + ", Dish: " + dish_type + ", with name: " + name);
+                    }
                 }
-                else {
-                  if($('#' + weekday + '-' + dish_type).length != 0) {
-                    $('#' + weekday + '-' + dish_type).html(name);
-                  }
-                  else {
-                    $('#alert').show();
-                    $('#alert').append('<p>' + 'Weird value! Day: ' + day + ', Meal: ' + meal_type +', Dish: ' + dish_type + ', with name: ' + name + '</p>');
-                    console.error("Weird value! Day: " + day + ", Meal: " + meal_type +", Dish: " + dish_type + ", with name: " + name);
-                  }
-                }
-              });
             });
-          });
+        });
+    });
 
-          var maxDate = new Date(Math.max.apply(null,dates));
-          var minDate = new Date(Math.min.apply(null,dates));
+    var maxDate = new Date(Math.max.apply(null, dates));
+    var minDate = new Date(Math.min.apply(null, dates));
 
-          $('#week-info').html(formatDateString(minDate) + " to " + formatDateString(maxDate))
-        }
+    $('#week-info').html(formatDateString(minDate) + " to " + formatDateString(maxDate))
+}
 
-    function formatDateString(date) {
-      return date.getDate() + "/" + months[date.getMonth()] + "/" + date.getFullYear();
-    }
+function formatDateString(date) {
+    return date.getDate() + "/" + months[date.getMonth()] + "/" + date.getFullYear();
+}
 
-    function resetInfo(){
-      $('#week-info').html('');
-      $('td');
-      $('#alert').html('-');
-      $('#alert').hide();
-    }
+function resetInfo() {
+    $('#week-info').html('');
+    $('td');
+    $('#alert').html('-');
+    $('#alert').hide();
+}
 </script>
 
 <style>
