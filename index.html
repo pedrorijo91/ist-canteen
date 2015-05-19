@@ -10,7 +10,6 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-
 </head>
 <body>
 
@@ -23,9 +22,7 @@
     <p>
       <div class="row">
         <div class="col-sm-8">
-          <!-- <input class="btn btn-default" type="button" value="Update" onclick="loadCanteenInfo()"> -->
-          <!-- <input class="btn btn-default" type="button" value="Update2" onclick="xpto()"> -->
-          <input class="btn btn-default" type="button" value="UpdateFake" onclick="processData()">
+          <input class="btn btn-default" type="button" value="Refresh" onclick="loadCanteenInfo()">
         </div>
       </div>
     </p>
@@ -118,41 +115,61 @@
       </table>
     </div>
 
+    <div id="alert" class="alert alert-warning" role="alert" hidden></div>
+
   </body>
 
   <script>
-  $(document).ready(processData);
-
+  $(document).ready(loadCanteenInfo);
 
   var weekdays = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
   var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
     function loadCanteenInfo() {
-      $.ajax({
-        url: 'https://fenix.tecnico.ulisboa.pt/api/fenix/v1/canteen',
-        type: 'GET',
-        dataType: 'jsonp',
-        error: function(jqXHR, textStatus, errorThrown){ alert("Error: " + textStatus + " => " + errorThrown); },
-        success: function() {
-          alert('GET completed: ' + data); 
-        }
-      });  
+      readDataFromFile();
+      // debugger;
+      // processData(fileData);
+      // $.ajax({
+      //   url: 'https://fenix.tecnico.ulisboa.pt/api/fenix/v1/canteen',
+      //   type: 'GET',
+      //   dataType: 'jsonp',
+      //   error: function(jqXHR, textStatus, errorThrown){ alert("Error: " + textStatus + " => " + errorThrown); },
+      //   success: function() {
+      //     alert('GET completed: ' + data); 
+      //   }
+      // });  
     }
 
-    function processData() {
+    function readDataFromFile() {
+      //https://fenix.tecnico.ulisboa.pt/api/fenix/v1/canteen
+      //http://codebeautify.org/jsonviewer one liner json
 
-          //https://fenix.tecnico.ulisboa.pt/api/fenix/v1/canteen
+      var filePath = "assets/resources/";
+      var filename = "data.json";
+      var file = filePath + filename;
+
+      $.ajax({
+        dataType: "json",
+        url: file,
+        success: function(jdata) {
+          var json = $.parseJSON(jdata);
+          processData(json);
+        },
+        error: function(err) {
+          console.error("error reading from file: " + file);
+        }
+      });
+    }
+
+    function processData(obj) {
           //http://www.textfixer.com/tools/remove-white-spaces.php
           //http://bernhardhaeussner.de/odd/json-escape/
           //delete \n
+          
           var pattern = /(\d{2})\/(\d{1,2})\/(\d{4})/;
           var dates=[];
 
-          var data = "[ { \"day\": \"18/5/2015\", \"meal\": [ { \"info\": [ { \"menu\": \"Menú Macrobiótica\", \"name\": \"Feijoada de cogumelos\", \"type\": \"Macrobiótico\" }, { \"menu\": \"Menú Tradicional\", \"name\": \"Arroz de frango\", \"type\": \"Carne\" }, { \"menu\": \"Menú Tradicional\", \"name\": \"Fuzilli de atum\", \"type\": \"Massa\" }, { \"menu\": \"Menú Tradicional\", \"name\": \"Sopa de espinafres\", \"type\": \"Sopa\" } ], \"type\": \"Almoço\" }, { \"info\": [ { \"menu\": \"Menú Tradicional\", \"name\": \"Rissois de camarão com arroz\", \"type\": \"Peixe\" } ], \"type\": \"Jantar\" } ] }, { \"day\": \"21/5/2015\", \"meal\": [ { \"info\": [ { \"menu\": \"Menú Macrobiótica\", \"name\": \"Croquetes de seitan com arroz\", \"type\": \"Macrobiótico\" }, { \"menu\": \"Menú Tradicional\", \"name\": \"Fusílli tricolor c/frango e cogumelos\", \"type\": \"Massa\" }, { \"menu\": \"Menú Tradicional\", \"name\": \"Bacalhau com natas\", \"type\": \"Peixe\" }, { \"menu\": \"Menú Tradicional\", \"name\": \"Sopa camponesa\", \"type\": \"Sopa\" } ], \"type\": \"Almoço\" }, { \"info\": [ { \"menu\": \"Menú Tradicional\", \"name\": \"Frango assado com arroz\", \"type\": \"Carne\" } ], \"type\": \"Jantar\" } ] }, { \"day\": \"20/5/2015\", \"meal\": [ { \"info\": [ { \"menu\": \"Menú Macrobiótica\", \"name\": \"Berinjela parmesiana com puré\", \"type\": \"Macrobiótico\" }, { \"menu\": \"Menú Tradicional\", \"name\": \"Lombo de porco com arroz\", \"type\": \"Carne\" }, { \"menu\": \"Menú Tradicional\", \"name\": \"Esparguete à bolonhesa\", \"type\": \"Massa\" }, { \"menu\": \"Menú Tradicional\", \"name\": \"Sopa de nabiças\", \"type\": \"Sopa\" } ], \"type\": \"Almoço\" }, { \"info\": [ { \"menu\": \"Menú Tradicional\", \"name\": \"Red fish com batata assada\", \"type\": \"Peixe\" } ], \"type\": \"Jantar\" } ] }, { \"day\": \"19/5/2015\", \"meal\": [ { \"info\": [ { \"menu\": \"Menú Macrobiótica\", \"name\": \"Tofu no forno com legumes assados\", \"type\": \"Macrobiótico\" }, { \"menu\": \"Menú Tradicional\", \"name\": \"Lasanha de carne\", \"type\": \"Massa\" }, { \"menu\": \"Menú Tradicional\", \"name\": \"Lula à algarvia com batata frita\", \"type\": \"Peixe\" }, { \"menu\": \"Menú Tradicional\", \"name\": \"Sopa juliana\", \"type\": \"Sopa\" } ], \"type\": \"Almoço\" }, { \"info\": [ { \"menu\": \"Menú Tradicional\", \"name\": \"Arroz à valenciana\", \"type\": \"Carne\" } ], \"type\": \"Jantar\" } ] }, { \"day\": \"22/5/2015\", \"meal\": [ { \"info\": [ { \"menu\": \"Menú Macrobiótica\", \"name\": \"Pizza de seitan\", \"type\": \"Macrobiótico\" }, { \"menu\": \"Menú Tradicional\", \"name\": \"Esparguete à carbonara\", \"type\": \"Massa\" }, { \"menu\": \"Menú Tradicional\", \"name\": \"Salada de atum com feijão frade\", \"type\": \"Peixe\" }, { \"menu\": \"Menú Tradicional\", \"name\": \"Creme de legumes\", \"type\": \"Sopa\" } ], \"type\": \"Almoço\" }, { \"info\": [ { \"menu\": \"Menú Tradicional\", \"name\": \"Bifana frita com esparguete\", \"type\": \"Carne\" } ], \"type\": \"Jantar\" } ] }]"
-
-          var obj = $.parseJSON(data);
-
-          //TODO: clear table before refresh
+          resetInfo();
 
           $.each(obj, function(index, element) {
             var day = element.day
@@ -186,19 +203,31 @@
                 var dish_type = element.type.toLowerCase()
 
                 if(meal_type === "jantar") {
-                  $('#' + weekday + '-' + meal_type).html(name);
+                  if($('#' + weekday + '-' + meal_type).length != 0) {
+                    $('#' + weekday + '-' + meal_type).html(name);
+                  }
+                  else {
+                    $('#alert').show();
+                    $('#alert').append('<p>' + 'Weird value! Day: ' + day + ', Meal: ' + meal_type +', Dish: ' + dish_type + ', with name: ' + name + '</p>');
+                    console.error("Weird value! Day: " + day + ", Meal: " + meal_type +", Dish: " + dish_type + ", with name: " + name);
+                  }
                 }
                 else {
-                  $('#' + weekday + '-' + dish_type).html(name);
+                  if($('#' + weekday + '-' + dish_type).length != 0) {
+                    $('#' + weekday + '-' + dish_type).html(name);
+                  }
+                  else {
+                    $('#alert').show();
+                    $('#alert').append('<p>' + 'Weird value! Day: ' + day + ', Meal: ' + meal_type +', Dish: ' + dish_type + ', with name: ' + name + '</p>');
+                    console.error("Weird value! Day: " + day + ", Meal: " + meal_type +", Dish: " + dish_type + ", with name: " + name);
+                  }
                 }
-
-                //console.log("Day " + day + ", meal_type: " + meal_type + ", dish_type: " + dish_type + ", name: " +  name);
               });
             });
           });
 
-          var maxDate=new Date(Math.max.apply(null,dates));
-          var minDate=new Date(Math.min.apply(null,dates));
+          var maxDate = new Date(Math.max.apply(null,dates));
+          var minDate = new Date(Math.min.apply(null,dates));
 
           $('#week-info').html(formatDateString(minDate) + " to " + formatDateString(maxDate))
         }
@@ -207,17 +236,12 @@
       return date.getDate() + "/" + months[date.getMonth()] + "/" + date.getFullYear();
     }
 
-    // function xpto(){
-    //   $.ajax({
-    //     url : "http://hayageektest.appspot.com/cross-domain-cors/jsonp.php",
-    //     dataType:"jsonp",
-    //     jsonp:"mycallback",
-    //     success:function(data)
-    //     {
-    //         alert("Name:"+data.name+"nage:"+data.age+"nlocation:"+data.location);
-    //     }
-    // });
-    // }
+    function resetInfo(){
+      $('#week-info').html('');
+      $('td');
+      $('#alert').html('-');
+      $('#alert').hide();
+    }
 </script>
 
 <style>
