@@ -126,23 +126,14 @@
   var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
     function loadCanteenInfo() {
-      readDataFromFile();
-      // debugger;
-      // processData(fileData);
-      // $.ajax({
-      //   url: 'https://fenix.tecnico.ulisboa.pt/api/fenix/v1/canteen',
-      //   type: 'GET',
-      //   dataType: 'jsonp',
-      //   error: function(jqXHR, textStatus, errorThrown){ alert("Error: " + textStatus + " => " + errorThrown); },
-      //   success: function() {
-      //     alert('GET completed: ' + data); 
-      //   }
-      // });  
+      readDataFromFile(); 
     }
 
     function readDataFromFile() {
       //https://fenix.tecnico.ulisboa.pt/api/fenix/v1/canteen
-      //http://codebeautify.org/jsonviewer one liner json
+      //http://www.textfixer.com/tools/remove-white-spaces.php
+      //http://codebeautify.org/jsonviewer 
+      //http://bernhardhaeussner.de/odd/json-escape/
 
       var filePath = "assets/resources/";
       var filename = "data.json";
