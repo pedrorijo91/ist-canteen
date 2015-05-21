@@ -175,6 +175,10 @@ function processData(obj) {
         weekday = weekday.toLowerCase();
         $('#' + weekday).html(formatDateString(date))
 
+        if(isToday(date)) {
+            window.location = '#' + weekday;
+        }
+
         dates.push(date);
 
         var meals = element.meal
@@ -211,6 +215,11 @@ function processData(obj) {
     var minDate = new Date(Math.min.apply(null, dates));
 
     $('#week-info').html(formatDateString(minDate) + " to " + formatDateString(maxDate))
+}
+
+function isToday(date) {
+    var today = new Date();
+    return date.toDateString() === today.toDateString();
 }
 
 function formatDateString(date) {
