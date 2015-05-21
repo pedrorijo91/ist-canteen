@@ -1,0 +1,69 @@
+table, th, td {
+    text-align: center;
+}
+.table>thead>tr>th {
+  vertical-align: middle;
+}
+
+  .demo-ribbon-wrapper {
+    overflow: hidden;
+    width: 114px;
+    height: 66px;
+    top: 0;
+    right: -1px;
+    display: inline;
+    position: absolute
+}
+.demo-ribbon {
+    position: relative;
+    top: 18px;
+    right: -30px;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    background: #ab1200;
+    transform: rotate(2dgr);
+    -o-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    margin-top: 0;
+    text-align: center
+}
+.ribbon-text {
+    top: 20px;
+    color: #FFF;
+    left: -41px;
+    width: 147px;
+    z-index: 1000;
+    padding: 7px 0;
+    font-size: 13px;
+    position: fixed;
+    overflow: hidden;
+    font-weight: 700;
+    text-align: center;
+    white-space: nowrap;
+    text-shadow: 0 0 5px #444;
+    -o-transform: rotate(315deg);
+    -ms-transform: rotate(315deg);
+    -moz-transform: rotate(315deg);
+    -webkit-transform: rotate(315deg);
+    background-color: rgba(204, 31, 31, 1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .48);
+    border: 1px solid #FFF
+}
+.ribbon-green:before,
+.ribbon-green:after {
+    content: "";
+    border-top: 3px solid #6e8900;
+    border-left: 3px solid transparent;
+    border-right: 3px solid transparent;
+    position: absolute;
+    bottom: -3px
+}
+.ribbon-green:before {
+    left: 0
+}
+.ribbon-green:after {
+    right: 0
+}
