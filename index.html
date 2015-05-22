@@ -24,6 +24,16 @@
     </script>
 </head>
 <body>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/pt_PT/sdk.js#xfbml=1&version=v2.3&appId=368434960020705";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>
   
   <div class="ribbon-text">Beta</div>
 
@@ -123,8 +133,10 @@
 
     <div id="alert" class="alert alert-warning" role="alert" hidden></div>
 
-  <a href="https://twitter.com/share" class="twitter-share-button" data-text="What's the menu for today at IST - Alameda?" data-via="pedrorijo91" data-size="large">Tweet</a>
-  </body>
+  <div><a href="https://twitter.com/share" class="twitter-share-button" data-text="What's the menu for today at IST - Alameda?" data-via="pedrorijo91">Tweet</a></div>
+
+  <div class="fb-share-button" data-href="http://pedrorijo91.github.io/ist-canteen" data-layout="button_count"></div>
+</body>
 
 <script>
     ! function(d, s, id) {
