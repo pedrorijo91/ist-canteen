@@ -18,7 +18,6 @@ function isToday(date) {
 }
 
 function processData(obj) {
-    var pattern = /(\d{2})\/(\d{1,2})\/(\d{4})/;
     var dates = [];
 
     resetInfo();
