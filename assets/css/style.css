@@ -5,7 +5,7 @@ table, th, td {
   vertical-align: middle;
 }
 
-  .demo-ribbon-wrapper {
+.demo-ribbon-wrapper {
     overflow: hidden;
     width: 114px;
     height: 66px;

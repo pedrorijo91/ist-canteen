@@ -1,26 +1,20 @@
 var weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-function loadCanteenInfo() {
-    readDataFromFile();
+function resetInfo() {
+    $('#week-info').html('');
+    $('td');
+    $('#alert').html('-');
+    $('#alert').hide();
 }
 
-function readDataFromFile() {
-    var filePath = "assets/resources/";
-    var filename = "data.json";
-    var file = filePath + filename;
+function formatDateString(date) {
+    return date.getDate() + "/" + months[date.getMonth()] + "/" + date.getFullYear();
+}
 
-    $.ajax({
-        dataType: "json",
-        url: file,
-        success: function(jdata) {
-            var json = $.parseJSON(jdata);
-            processData(json);
-        },
-        error: function(err) {
-            console.error("error reading from file: " + file);
-        }
-    });
+function isToday(date) {
+    var today = new Date();
+    return date.toDateString() === today.toDateString();
 }
 
 function processData(obj) {
@@ -57,28 +51,28 @@ function processData(obj) {
 
         var meals = element.meal
         $.each(meals, function(index, element) {
-            var meal_type = element.type.toLowerCase()
+            var mealType = element.type.toLowerCase()
 
             var info = element.info
             $.each(info, function(index, element) {
                 var name = element.name
-                var dish_type = element.type.toLowerCase()
+                var dishType = element.type.toLowerCase()
 
-                if (meal_type === "jantar") {
-                    if ($('#' + weekday + '-' + meal_type).length != 0) {
-                        $('#' + weekday + '-' + meal_type).html(name);
+                if (mealType === "jantar") {
+                    if ($('#' + weekday + '-' + mealType).length !== 0) {
+                        $('#' + weekday + '-' + mealType).html(name);
                     } else {
                         $('#alert').show();
-                        $('#alert').append('<p>' + 'Weird value! Day: ' + day + ', Meal: ' + meal_type + ', Dish: ' + dish_type + ', with name: ' + name + '</p>');
-                        console.error("Weird value! Day: " + day + ", Meal: " + meal_type + ", Dish: " + dish_type + ", with name: " + name);
+                        $('#alert').append('<p>' + 'Weird value! Day: ' + day + ', Meal: ' + mealType + ', Dish: ' + dishType + ', with name: ' + name + '</p>');
+                        console.error("Weird value! Day: " + day + ", Meal: " + mealType + ", Dish: " + dishType + ", with name: " + name);
                     }
                 } else {
-                    if ($('#' + weekday + '-' + dish_type).length != 0) {
-                        $('#' + weekday + '-' + dish_type).html(name);
+                    if ($('#' + weekday + '-' + dishType).length !== 0) {
+                        $('#' + weekday + '-' + dishType).html(name);
                     } else {
                         $('#alert').show();
-                        $('#alert').append('<p>' + 'Weird value! Day: ' + day + ', Meal: ' + meal_type + ', Dish: ' + dish_type + ', with name: ' + name + '</p>');
-                        console.error("Weird value! Day: " + day + ", Meal: " + meal_type + ", Dish: " + dish_type + ", with name: " + name);
+                        $('#alert').append('<p>' + 'Weird value! Day: ' + day + ', Meal: ' + mealType + ', Dish: ' + dishType + ', with name: ' + name + '</p>');
+                        console.error("Weird value! Day: " + day + ", Meal: " + mealType + ", Dish: " + dishType + ", with name: " + name);
                     }
                 }
             });
@@ -91,18 +85,24 @@ function processData(obj) {
     $('#week-info').html(formatDateString(minDate) + " to " + formatDateString(maxDate))
 }
 
-function isToday(date) {
-    var today = new Date();
-    return date.toDateString() === today.toDateString();
+function readDataFromFile() {
+    var filePath = "assets/resources/";
+    var filename = "data.json";
+    var file = filePath + filename;
+
+    $.ajax({
+        dataType: "json",
+        url: file,
+        success: function(jdata) {
+            var json = $.parseJSON(jdata);
+            processData(json);
+        },
+        error: function(err) {
+            console.error("error reading from file: " + file);
+        }
+    });
 }
 
-function formatDateString(date) {
-    return date.getDate() + "/" + months[date.getMonth()] + "/" + date.getFullYear();
-}
-
-function resetInfo() {
-    $('#week-info').html('');
-    $('td');
-    $('#alert').html('-');
-    $('#alert').hide();
+function loadCanteenInfo() {
+    readDataFromFile();
 }
