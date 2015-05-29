@@ -1,0 +1,146 @@
+doctype html(lang='en')
+head
+    title IST Canteen - Alameda
+
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+
+    link(rel='stylesheet', href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/css/style.css')
+
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js')
+    script(src='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js')
+    script(type='text/javascript', src='/js/canteen.js')
+
+    script.
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-61168333-2', 'auto');
+      ga('send', 'pageview');
+  body
+    #fb-root
+    script.
+      (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/pt_PT/sdk.js#xfbml=1&version=v2.3&appId=368434960020705";
+      fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    .ribbon-text Beta
+    .container
+      .jumbotron
+        h1 IST Canteen - Alameda
+        p
+          | Weekly menu: 
+          span#week-info
+      .table-responsive
+        table.table.table-bordered.table-striped
+          thead
+            tr
+            tr
+              th(rowspan='2') Menu type
+              th#monday -
+              th#tuesday -
+              th#wednesday -
+              th#thursday -
+              th#friday -
+              th#saturday -
+              th#sunday -
+            th Monday
+            th Tuesday
+            th Wednesday
+            th Thursday
+            th Friday
+            th Saturday
+            th Sunday
+          tbody
+            tr
+              th(scope='row') Lunch Soup
+              td#monday-sopa -
+              td#tuesday-sopa -
+              td#wednesday-sopa -
+              td#thursday-sopa -
+              td#friday-sopa -
+              td#saturday-sopa -
+              td#sunday-sopa -
+            tr
+              th(scope='row') Lunch Meat
+              td#monday-carne -
+              td#tuesday-carne -
+              td#wednesday-carne -
+              td#thursday-carne -
+              td#friday-carne -
+              td#saturday-carne -
+              td#sunday-carne -
+            tr
+              th(scope='row') Lunch Fish
+              td#monday-peixe -
+              td#tuesday-peixe -
+              td#wednesday-peixe -
+              td#thursday-peixe -
+              td#friday-peixe -
+              td#saturday-peixe -
+              td#sunday-peixe -
+            tr
+              th(scope='row') Lunch Pasta
+              td#monday-massa -
+              td#tuesday-massa -
+              td#wednesday-massa -
+              td#thursday-massa -
+              td#friday-massa -
+              td#saturday-massa -
+              td#sunday-massa -
+            tr
+              th(scope='row') Lunch Macrobiotic
+              td(id='monday-macrobiótico') -
+              td(id='tuesday-macrobiótico') -
+              td(id='wednesday-macrobiótico') -
+              td(id='thursday-macrobiótico') -
+              td(id='friday-macrobiótico') -
+              td(id='saturday-macrobiótico') -
+              td(id='sunday-macrobiótico') -
+            tr
+              th(scope='row') Dinner
+              td#monday-jantar -
+              td#tuesday-jantar -
+              td#wednesday-jantar -
+              td#thursday-jantar -
+              td#friday-jantar -
+              td#saturday-jantar -
+              td#sunday-jantar -
+      #alert.alert.alert-warning(role='alert', hidden='')
+      div
+        a.twitter-share-button(href='https://twitter.com/share', data-text="What's the menu for today at IST - Alameda?", data-via='pedrorijo91') Tweet
+      .fb-share-button(data-href='http://pedrorijo91.github.io/ist-canteen', data-layout='button_count')
+
+
+
+script.
+    ! function(d, s, id) {
+    var js,
+    fjs = d.getElementsByTagName(s)[0],
+    p = /^http:/.test(d.location) ? 'http' : 'https';
+    if (!d.getElementById(id)) {
+    js = d.createElement(s);
+    js.id = id;
+    js.src = p + '://platform.twitter.com/widgets.js';
+    fjs.parentNode.insertBefore(js, fjs);
+    }
+    }(document, 'script', 'twitter-wjs');
+
+script.
+  Object.prototype.getName = function() { 
+   var funcNameRegex = /function (.{1,})\(/;
+   var results = (funcNameRegex).exec((this).constructor.toString());
+   return (results && results.length > 1) ? results[1] : "";
+  };
+
+   $(document).ready(function() {
+    var menu = '#{_menu}';
+    menu = menu.replace(/&quot;/gm,"\"")
+    var json = JSON.parse(menu);
+    processData(json)
+    });

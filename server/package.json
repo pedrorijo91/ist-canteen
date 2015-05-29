@@ -1,0 +1,32 @@
+{
+  "name": "node.js-exp",
+  "version": "1.0.0",
+  "description": "experiments",
+  "main": "express.js",
+  "dependencies": {
+    "express": "~4.13.0",
+    "http": "0.0.0",
+    "jade": "~1.10.0",
+    "jquery": "~2.1.4",
+    "nodemon": "^1.3.7",
+    "jsdom": "~3.1.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pedrorijo91/node.js-exp.git"
+  },
+  "keywords": [
+    "http"
+  ],
+  "author": "pedrorijo91",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pedrorijo91/node.js-exp/issues"
+  },
+  "homepage": "https://github.com/pedrorijo91/node.js-exp#readme"
+}
