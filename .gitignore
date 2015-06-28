@@ -2,7 +2,7 @@ _site/
 .sass-cache/
 # Logs
 logs
-*.log
+**/*.log
 
 # Runtime data
 pids
